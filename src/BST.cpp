@@ -2,9 +2,9 @@
 #include <format>
 #include <iostream>
 
-BST::BST() : root(nullptr) {}
 BST::BST(int id, int score)
 {
+    insert(id, score);
 }
 
 void BST::insert(int id, int score)
@@ -28,26 +28,30 @@ void BST::insert(int id, int score)
         else
         {
             prev_node = cur_node;
-            if (id > cur_id)
-                cur_node = cur_node->right.get();
-            else
+            if (id < cur_id)
                 cur_node = cur_node->left.get();
+            else
+                cur_node = cur_node->right.get();
         }
     }
-    if (prev_node->data.get_id() < id)
-    {
-        prev_node->right = std::make_unique<Node>(id, prev_node);
-        prev_node->right->data.add_score(score);
-    }
-    else
+    if (id < prev_node->data.get_id())
     {
         prev_node->left = std::make_unique<Node>(id, prev_node);
         prev_node->left->data.add_score(score);
+    }
+    else
+    {
+        prev_node->right = std::make_unique<Node>(id, prev_node);
+        prev_node->right->data.add_score(score);
     }
 }
 
 void BST::print()
 {
+    if (root == nullptr)
+        return;
+
+    int len = std::format("({:-7d}, {:-6.2f}) ", 1, 1.0).length();
     std::vector<std::pair<Node *, int>> buffer{{root.get(), 0}};
     while (!buffer.empty())
     {
@@ -55,22 +59,30 @@ void BST::print()
         int depth = buffer.back().second;
         buffer.pop_back();
 
-        if (depth > 0 && cur_node == cur_node->parent->left.get()){
+        if (depth > 0 && cur_node == cur_node->parent->left.get())
+        {
             std::cout << "\n";
-            for (int i = 0; i < depth; ++i)
-                std::cout << "        ";
+            for (int i = 0; i < depth; ++i) {
+                for (int j = 0; j < len; ++j)
+                {
+                    std::cout << " ";
+                }
+            }
         }
-        std::cout << std::format("{:07d} ", cur_node->data.get_id());
+        std::cout << std::format("({:-7d}, {:-6.2f}) ", cur_node->data.get_id(), cur_node->data.get_scores_average());
 
         Node *left = cur_node->left.get(), *right = cur_node->right.get();
         if (left != nullptr)
-            buffer.push_back({ left, depth + 1});
-        if (right != nullptr) 
+            buffer.push_back({left, depth + 1});
+        if (right != nullptr)
             buffer.push_back({right, depth + 1});
     }
 }
 
-int BST::height() {
+int BST::height()
+{
+    if (root == nullptr)
+        return -1;
     int max_depth = 0;
     std::vector<std::pair<Node *, int>> buffer{{root.get(), 0}};
     while (!buffer.empty())
@@ -88,7 +100,8 @@ int BST::height() {
     return max_depth;
 }
 
-double BST::search_average(int id) {
+double BST::search_average(int id)
+{
     Node *cur_node = root.get();
     while (cur_node != nullptr)
     {

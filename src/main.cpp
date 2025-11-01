@@ -1,8 +1,9 @@
-#define BLOCK_1
+#define BLOCK_2
 
 #include <iostream>
 #include <random>
 #include "BST.h"
+#include "AVLTree.h"
 
 const int MAX_ID = 1 << 20;
 
@@ -31,7 +32,7 @@ void generate_id(std::vector<int> &data, size_t count)
 int main() {
     // BST test
     std::cout << "BST Test :\n";
-    std::cout << "Insert data : (3, 100)、(2, 60)、(1, 70)、(5, 40)、(4, 70) \n";
+    std::cout << "Insert data : (3, 100)、(2, 60)、(1, 70)、(5, 40)、(4, 70)\n";
     BST bst;
     // (3, 100)、(2, 60)、(1, 70)、(5, 40)、(4, 70)
     bst.insert(3, 100);
@@ -40,9 +41,38 @@ int main() {
     bst.insert(5, 40);
     bst.insert(4, 70);
     bst.print();
-    std::cout << "\n" << bst.height();
+    std::cout << "\n" << bst.height() << "\n";
     // BST test end
 
+    //AVLTree test
+    std::cout << "AVLTree Test:\n";
+    std::cout << "Insert data: (1, 100)、(2, 60)、(3, 70)、(4, 40)、(5, 70)\n";
+    AVLTree avl_tree;
+    //(1, 100)、(2, 60)、(3, 70)、(4, 40)、(5, 70)
+    avl_tree.insert(1, 100);
+    avl_tree.insert(2, 60);
+    avl_tree.insert(3, 70);
+    avl_tree.insert(4, 40);
+    avl_tree.insert(5, 70);
+    avl_tree.print();
+    std::cout << "\n" << avl_tree.height() << "\n";
+    // AVL test end
     return 0;
 }
+#endif
+
+#ifdef BLOCK_2
+int main()
+{
+    AVLTree avl_tree;
+    for (int i = 0; i < 10; ++ i) {
+        int id = std::uniform_int_distribution(1, 100)(gen);
+        std::cout << id << " ";
+        avl_tree.insert(id, random_score(gen));
+    }
+    std::cout << "\n";
+    avl_tree.print();
+    return 0;
+}
+
 #endif

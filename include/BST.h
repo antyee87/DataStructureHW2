@@ -2,22 +2,25 @@
 #include "HomeworkRequirement.h"
 #include <memory>
 
-class BST : public HomeworkRequirement {
+class BST : public HomeworkRequirement
+{
 public:
-    BST();
+    BST() = default;
     BST(int id, int score);
     void insert(int id, int score) override;
     void print() override;
     int height() override;
     double search_average(int id) override;
+
 private:
-    class Node {
+    class Node
+    {
     public:
-        Node(int id) : data(StudentProfile(id)), parent(nullptr), left(nullptr), right(nullptr) {}
-        Node(int id, Node *parent) : data(StudentProfile(id)), parent(parent), left(nullptr), right(nullptr) {}
-        Node *parent;
-        std::unique_ptr<Node> left, right;
+        Node(int id) : data(StudentProfile(id)){}
+        Node(int id, Node *parent) : data(StudentProfile(id)), parent(parent){}
+        Node *parent = nullptr;
+        std::unique_ptr<Node> left = nullptr, right = nullptr;
         StudentProfile data;
     };
-    std::unique_ptr<Node> root;
+    std::unique_ptr<Node> root = nullptr;
 };

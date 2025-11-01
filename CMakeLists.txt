@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(json)
 add_executable(HW2 
     src/main.cpp
     src/BST.cpp
+    src/AVLTree.cpp
 )
 
 target_link_libraries(HW2 PRIVATE nlohmann_json::nlohmann_json)
