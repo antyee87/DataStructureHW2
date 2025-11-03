@@ -2,9 +2,19 @@
 #include <format>
 #include <iostream>
 
-BST::BST(int id, int score)
+BST::~BST()
 {
-    insert(id, score);
+    std::vector<std::unique_ptr<Node>> buffer;
+    buffer.push_back(std::move(root));
+    while (!buffer.empty())
+    {
+        auto node = std::move(buffer.back());
+        buffer.pop_back();
+        if (node->left)
+            buffer.push_back(std::move(node->left));
+        if (node->right)
+            buffer.push_back(std::move(node->right));
+    }
 }
 
 void BST::insert(int id, int score)
@@ -62,7 +72,8 @@ void BST::print()
         if (depth > 0 && cur_node == cur_node->parent->left.get())
         {
             std::cout << "\n";
-            for (int i = 0; i < depth; ++i) {
+            for (int i = 0; i < depth; ++i)
+            {
                 for (int j = 0; j < len; ++j)
                 {
                     std::cout << " ";

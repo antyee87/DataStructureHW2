@@ -23,6 +23,7 @@ private:
 };
 
 class HomeworkRequirement {
+public:
     virtual void insert(int id, int score) = 0;
     virtual void print() = 0;
     virtual int height() = 0;

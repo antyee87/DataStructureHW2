@@ -18,6 +18,8 @@ add_executable(HW2
     src/main.cpp
     src/BST.cpp
     src/AVLTree.cpp
+    src/Treap.cpp
+    src/SkipList.cpp
 )
 
 target_link_libraries(HW2 PRIVATE nlohmann_json::nlohmann_json)

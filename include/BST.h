@@ -6,7 +6,7 @@ class BST : public HomeworkRequirement
 {
 public:
     BST() = default;
-    BST(int id, int score);
+    ~BST();
     void insert(int id, int score) override;
     void print() override;
     int height() override;
