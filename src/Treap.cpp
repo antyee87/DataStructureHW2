@@ -109,9 +109,9 @@ void Treap::print()
 int Treap::height()
 {
     if (root == nullptr)
-        return -1;
+        return 0;
     int max_depth = 0;
-    std::vector<std::pair<Node *, int>> buffer{{root.get(), 0}};
+    std::vector<std::pair<Node *, int>> buffer{{root.get(), 1}};
     while (!buffer.empty())
     {
         Node *cur_node = buffer.back().first;

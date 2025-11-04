@@ -21,7 +21,7 @@ private:
         Node(int id, Node *parent) : data(StudentProfile(id)), parent(parent) {}
         Node *parent = nullptr;
         std::unique_ptr<Node> left = nullptr, right = nullptr;
-        int height = 0;
+        int height = 1;
         StudentProfile data;
     };
     std::unique_ptr<Node> root = nullptr;

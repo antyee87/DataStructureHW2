@@ -229,10 +229,9 @@ int main()
                             data_structures[data_structure_type].first->search_average(search_id);
                         auto end_time = std::chrono::high_resolution_clock::now();
                         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-                        std::cout << " time : " << duration.count() << "(µs)\n";
-                        if (data_structure_type >= 4)
-                            continue;
-                        part_result_json[std::to_string(experiment_number + 1)] = duration.count();
+                        std::cout << " total time : " << duration.count() << "(µs), average time : " << static_cast<float>(duration.count()) / NUMBER_OF_SEARCHS << "(µs)\n";
+                            if (data_structure_type >= 4) continue;
+                        part_result_json[std::to_string(experiment_number + 1)] = static_cast<float>(duration.count()) / NUMBER_OF_SEARCHS;
                     }
                     else if (experiment_number == 2)
                     {

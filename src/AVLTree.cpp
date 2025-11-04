@@ -78,6 +78,10 @@ void AVLTree::insert(int id, int score)
                 rotate_upward(prev_node->right.get());
             }
         }
+        else if (balance_factor == 0)
+        {
+            return;
+        }
         prev_node->height = get_subtree_height(prev_node);
         cur_node = prev_node;
         prev_node = prev_node->parent;
@@ -121,7 +125,7 @@ void AVLTree::print()
 int AVLTree::height()
 {
     if (root == nullptr)
-        return -1;
+        return 0;
 
     return root->height;
 }
@@ -255,14 +259,14 @@ void AVLTree::rotate_upward(Node *node)
 
 int AVLTree::get_balance_factor(Node *node)
 {
-    int left_height = node->left == nullptr ? -1 : node->left->height;
-    int right_height = node->right == nullptr ? -1 : node->right->height;
+    int left_height = node->left == nullptr ? 0 : node->left->height;
+    int right_height = node->right == nullptr ? 0 : node->right->height;
     return (left_height - right_height);
 }
 
 int AVLTree::get_subtree_height(Node *node)
 {
-    int left_height = node->left == nullptr ? -1 : node->left->height;
-    int right_height = node->right == nullptr ? -1 : node->right->height;
+    int left_height = node->left == nullptr ? 0 : node->left->height;
+    int right_height = node->right == nullptr ? 0 : node->right->height;
     return std::max(left_height, right_height) + 1;
 }

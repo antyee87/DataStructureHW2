@@ -118,7 +118,7 @@ void SkipList::print()
 
 int SkipList::height()
 {
-    return static_cast<int>(head->next.size()) - 1;
+    return static_cast<int>(head->next.size());
 }
 
 double SkipList::search_average(int id)
