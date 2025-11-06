@@ -45,7 +45,7 @@ void SkipList::insert(int id, int score, int insert_level)
     Node *prev_node = head, *cur_node = head->next[level];
     while (true)
     {
-        if (cur_node == nullptr || id < cur_node->data.get_id())
+        if (cur_node == nullptr || id < cur_node->index)
         {
             if (prev_node == nullptr)
                 return;
@@ -58,7 +58,7 @@ void SkipList::insert(int id, int score, int insert_level)
             cur_node = prev_node->next[level];
             continue;
         }
-        else if (id == cur_node->data.get_id())
+        else if (id == cur_node->index)
         {
             cur_node->data.add_score(score);
             return;
@@ -100,7 +100,7 @@ void SkipList::print()
         while(cur_node != nullptr)
         {
             if (static_cast<int>(cur_node->next.size()) - 1 >= level) {
-                std::cout << std::format("({:-7d}, {:-6.2f}) ", cur_node->data.get_id(), cur_node->data.get_scores_average());
+                std::cout << std::format("({:-7d}, {:-6.2f}) ", cur_node->index, cur_node->data.get_scores_average());
             }
             else
             {
@@ -127,7 +127,7 @@ double SkipList::search_average(int id)
     Node *prev_node = nullptr, *cur_node = head;
     while (true)
     {
-        if (cur_node == nullptr || id < cur_node->data.get_id())
+        if (cur_node == nullptr || id < cur_node->index)
         {
             if (prev_node == nullptr)
                 return -1;
@@ -137,7 +137,7 @@ double SkipList::search_average(int id)
             cur_node = prev_node->next[level];
             continue;
         }
-        else if (id == cur_node->data.get_id())
+        else if (id == cur_node->index)
         {
             return cur_node->data.get_scores_average();
         }

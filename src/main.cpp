@@ -56,7 +56,7 @@ int main() {
     std::cout << "\n" << bst.height() << "\n";
     for (int i = 0; i <= 5; ++i) 
     {
-        std::cout << "Id " << i << " average " << bst.search_average(i) << "\n";
+        std::cout << "Id " << i << " average = " << bst.search_average(i) << "\n";
     }
     // BST test end
     std::cout << "\n";
@@ -74,7 +74,7 @@ int main() {
     std::cout << "\n" << avl_tree.height() << "\n";
     for (int i = 0; i <= 5; ++i)
     {
-        std::cout << "Id " << i << " average " << avl_tree.search_average(i) << "\n";
+        std::cout << "Id " << i << " average = " << avl_tree.search_average(i) << "\n";
     }
     // AVL test end
     std::cout << "\n";
@@ -92,7 +92,7 @@ int main() {
     std::cout << "\n" << treap.height() << "\n";
     for (int i = 0; i <= 5; ++i)
     {
-        std::cout << "Id " << i << " average " << treap.search_average(i) << "\n";
+        std::cout << "Id " << i << " average = " << treap.search_average(i) << "\n";
     }
     // Treap test end
     std::cout << "\n";
@@ -112,7 +112,7 @@ int main() {
     std::cout << "\n" << skip_list.height() << "\n";
     for (int i = 0; i <= 5; ++i)
     {
-        std::cout << "Id " << i << " average " << skip_list.search_average(i) << "\n";
+        std::cout << "Id " << i << " average = " << skip_list.search_average(i) << "\n";
     }
     // SkipList test end
     return 0;
@@ -205,11 +205,15 @@ int main()
                 if (contained_object)
                     continue;
 
+                #ifdef DETAILED
                 std::cout << data_structures[data_structure_type].second << ":\n";
+                #endif
                 json part_result_json;
                 for (int experiment_number = 0; experiment_number < NUMBER_OF_EXPERIMENTS; ++experiment_number)
                 {
+                    #ifdef DETAILED
                     std::cout << "\tExperiment " << experiment_number + 1;
+                    #endif
                     if (experiment_number == 0)
                     {
                         auto start_time = std::chrono::high_resolution_clock::now();
@@ -217,7 +221,9 @@ int main()
                             data_structures[data_structure_type].first->insert(d.first, d.second);
                         auto end_time = std::chrono::high_resolution_clock::now();
                         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+                        #ifdef DETAILED
                         std::cout << " time : " << duration.count() << "(µs)\n";
+                        #endif
                         if (data_structure_type >= 4)
                             continue;
                         part_result_json[std::to_string(experiment_number + 1)] = duration.count();
@@ -229,13 +235,17 @@ int main()
                             data_structures[data_structure_type].first->search_average(search_id);
                         auto end_time = std::chrono::high_resolution_clock::now();
                         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+                        #ifdef DETAILED
                         std::cout << " total time : " << duration.count() << "(µs), average time : " << static_cast<float>(duration.count()) / NUMBER_OF_SEARCHS << "(µs)\n";
+                        #endif
                             if (data_structure_type >= 4) continue;
                         part_result_json[std::to_string(experiment_number + 1)] = static_cast<float>(duration.count()) / NUMBER_OF_SEARCHS;
                     }
                     else if (experiment_number == 2)
                     {
+                        #ifdef DETAILED
                         std::cout << " height : " << data_structures[data_structure_type].first->height() << "\n";
+                        #endif
                         part_result_json[std::to_string(experiment_number + 1)] = data_structures[data_structure_type].first->height();
                     }
                 }

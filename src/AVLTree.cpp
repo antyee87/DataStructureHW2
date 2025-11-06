@@ -32,7 +32,7 @@ void AVLTree::insert(int id, int score)
     Node *prev_node = nullptr, *cur_node = root.get();
     while (cur_node != nullptr)
     {
-        int cur_id = cur_node->data.get_id();
+        int cur_id = cur_node->index;
         if (cur_id == id)
         {
             cur_node->data.add_score(score);
@@ -47,7 +47,7 @@ void AVLTree::insert(int id, int score)
                 cur_node = cur_node->right.get();
         }
     }
-    if (id < prev_node->data.get_id())
+    if (id < prev_node->index)
     {
         prev_node->left = std::make_unique<Node>(id, prev_node);
         prev_node->left->data.add_score(score);
@@ -112,7 +112,7 @@ void AVLTree::print()
                 }
             }
         }
-        std::cout << std::format("({:-7d}, {:-6.2f}) ", cur_node->data.get_id(), cur_node->data.get_scores_average());
+        std::cout << std::format("({:-7d}, {:-6.2f}) ", cur_node->index, cur_node->data.get_scores_average());
 
         Node *left = cur_node->left.get(), *right = cur_node->right.get();
         if (left != nullptr)
@@ -135,7 +135,7 @@ double AVLTree::search_average(int id)
     Node *cur_node = root.get();
     while (cur_node != nullptr)
     {
-        int cur_id = cur_node->data.get_id();
+        int cur_id = cur_node->index;
         if (cur_id == id)
         {
             return cur_node->data.get_scores_average();

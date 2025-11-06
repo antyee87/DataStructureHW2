@@ -19,8 +19,9 @@ private:
     class Node
     {
     public:
-        Node(int id) : data(StudentProfile(id)){}
+        Node(int id) : index(id), data(StudentProfile(id)){}
         std::vector<Node *> next;
+        const int index;
         StudentProfile data;
     };
     Node *head;
