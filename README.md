@@ -109,9 +109,10 @@ id排序、結構、分數都正確。<br>
     確認在隨機數據的情況下，BST跟Treap的表現相同，然後髙度增長速度比其它結構快一點，還注意到Skip List在擲銅板正面機率為0.75的情況下，高度居然跟BST、Treap差不多，不知是巧合還是有什麼理由。<br>
 ## Implementation Explanation<a id=IE></a>
  1. ##### 如何讓id有多個score?
-    建立一個資料結構，儲存id跟scores的動態陣列，每次insert score時，將score放入scores，不過id並非必要，只是這樣感覺更好。
+    建立一個資料結構，儲存id跟scores的動態陣列，每次insert score時，將score放入scores，不過id並非必要，只是這樣感覺更好。<br>
  2. ##### AVL tree在rebalance時如何找到median?
     根據平衡因子(balance factor)窮舉四個可能。
+    ```
     node:待平衡子樹的根節點
     if (abs(node balance factor)>bound):
         if (node balance factor > 0):
@@ -124,6 +125,7 @@ id排序、結構、分數都正確。<br>
                 median = RR
             else:
                 median = RL
-
+    ```
+    <br>
  3. ##### 如何實作向上旋轉?
     根據待向上旋轉節點是父節點的左子節點還是右子節點決定旋轉邏輯，並且旋轉完後該節點會成為子樹的根節點。
